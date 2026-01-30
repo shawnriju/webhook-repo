@@ -1,4 +1,49 @@
-__pycache__
-.vscode
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
 .env
-venv
+.venv/
+.env/
+.venv
+
+# Virtual Environment
+env/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# Testing
+coverage/
+htmlcov/
+.pytest_cache/
+
+# Secrets
+secrets.py
+config.py
+*.key
+*.pem
+
+# ngrok
+.ngrok2/
+ngrok.yml
