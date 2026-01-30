@@ -2,17 +2,10 @@ from flask import Blueprint, jsonify, request
 from flask import render_template
 from app.extensions import mongo
 import uuid
-from datetime import datetime, timezone
-
+from datetime import datetime
+from app.webhook.utils import parse_github_timestamp
 
 webhook = Blueprint('Webhook', __name__, url_prefix='/webhook')
-
-def parse_github_timestamp(ts):
-    if ts.endswith("Z"):
-        ts = ts.replace("Z", "+00:00")
-
-    dt = datetime.fromisoformat(ts)
-    return dt.astimezone(timezone.utc)
 
 @webhook.route('/receiver', methods=["POST"])
 def receiver():
@@ -78,7 +71,7 @@ def get_events():
     events = list(
         mongo.db.events.find({}, {"_id": 0}).sort("timestamp", -1)
     )
-    # Convert datetime → ISO string for frontend
+    # Convert datetime to ISO string for frontend
     for event in events:
         if isinstance(event.get("timestamp"), datetime):
             event["timestamp"] = event["timestamp"].isoformat()
