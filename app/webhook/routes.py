@@ -63,7 +63,11 @@ def receiver():
 
     # Store event if valid
     if data:
-        mongo.db.events.insert_one(data)
+        try:
+            mongo.db.events.insert_one(data)
+        except Exception as e:
+            print(f"Error inserting data into MongoDB: {e}")
+            return jsonify({"status": "error", "message": "Database error"}), 500
 
     return jsonify({"status": "received"}), 200
 

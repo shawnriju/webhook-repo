@@ -1,8 +1,11 @@
 from flask import Flask
+import os
+from dotenv import load_dotenv
 
 from app.webhook.routes import webhook
 from app.extensions import mongo
 
+load_dotenv()
 
 # Creating our flask app
 def create_app():
@@ -14,7 +17,7 @@ def create_app():
     )
     
     # MongoDB configuration
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/github_events"
+    app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 
     # Initialize MongoDB
     mongo.init_app(app)
